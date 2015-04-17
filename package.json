@@ -1,0 +1,32 @@
+{
+  "name": "react-iz",
+  "version": "0.0.0",
+  "description": "A react validation component that works with Iz.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sourcescript/react-iz.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/sourcescript/react-iz/issues"
+  },
+  "dependencies": {
+    "iz": "~0.7.1",
+    "react": "~0.13.1"
+  },
+  "devDependencies": {
+    "babelify": "~6.0.2",
+    "karma": "~0.12.31",
+    "mocha": "~2.2.4",
+    "karma-mocha": "~0.1.10",
+    "webpack": "~1.8.5",
+    "karma-webpack": "~1.5.0",
+    "karma-chrome-launcher": "~0.1.8",
+    "karma-phantomjs-launcher": "~0.1.4"
+  }
+}
