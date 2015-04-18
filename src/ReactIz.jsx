@@ -1,6 +1,7 @@
-var iz = require('iz'),
+var iz = require('iz');
 var are = iz.are;
 var validators = iz.validators;
+var React = require('react');
 
 var ReactIz = React.createClass({
   propTypes: {
