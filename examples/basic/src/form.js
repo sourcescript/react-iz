@@ -6,10 +6,6 @@ var saveData = JSON.parse(localStorage.saveData || null) || {};
 
 var Form = React.createClass({
 
-  getInitialState: function() {
-    return { click: !false };
-  },
-
   render: function() {
     return (
       <form>
@@ -31,26 +27,27 @@ var Form = React.createClass({
       password: this.refs.password.getDOMNode().value
     };
 
-    this.dataValidator(data);
-  },
-
-  dataValidator: function(data) {
+    
     var usernameErrors = {
-      alphaNumeric: 'Username should consist numbers and letters only!'
+      required: 'this bitch is required!'
     };
 
     var passwordErrors = {
-      alphaNumeric: 'Password should consist numbers and letters only!'
+      required: 'this bitch is required!'
     };
 
     var rules = {
-      username: iz(data.username, usernameErrors).required(),
-      password: iz(data.password, passwordErrors).required()
-    }
+      username: iz(data.username, usernameErrors),
+      password: iz(data.password, passwordErrors)
+    };  
 
+    console.log(rules);
     var areRules = are(rules);
     var success = areRules.valid();
-    success ? 'data is prepared for saving!' : 'throw error';
+    success ? this.saveData(data) : console.log('throw error');
+  },
+
+  saveData: function(data) {
     
     saveData.data = data;
     saveData.time = new Date().getTime();
