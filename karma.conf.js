@@ -1,8 +1,6 @@
 // Karma configuration
 // Generated on Sat Apr 18 2015 03:17:56 GMT+0800 (PHT)
 
-var webpack = require('webpack');
-
 module.exports = function(config) {
   config.set({
 
@@ -13,7 +11,9 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [
-        'mocha'
+      'mocha',
+      'chai',
+      'sinon'
     ],
 
 
@@ -21,8 +21,7 @@ module.exports = function(config) {
     files: [
       // PhantomJS polyfill
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
-      // './node_modules/babel-core/browser-polyfill.js',
-      './src/__tests__/component-spec.js'
+      'webpack.test.js'
     ],
 
 
@@ -31,30 +30,30 @@ module.exports = function(config) {
     ],
 
     plugins: [
-        'karma-mocha',
-        'karma-phantomjs-launcher',
-        'karma-webpack',
-        'chai'
+      'karma-mocha',
+      'karma-phantomjs-launcher',
+      'karma-webpack',
+      'karma-chai',
+      'karma-sinon'
     ],
 
     webpack: {
-          module: {
-            loaders: [
-              { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader?modules=common&stage=0" },
-            ]
-          },
-          resolve: {
-            extensions: ['', '.js', '.jsx', '.es6']
-          },
-          plugins: [new webpack.IgnorePlugin(/vertx/)],
-          devtool: 'inline-source-map'
-        },
+      module: {
+        loaders: [
+          { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: "babel-loader?modules=common" },
+        ]
+      },
+      resolve: {
+        extensions: ['', '.js', '.jsx', '.es6']
+      },
+      devtool: 'inline-source-map'
+    },
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        './src/__tests__/component-spec.js': ['webpack']
+      'webpack.test.js': ['webpack']
     },
 
 
