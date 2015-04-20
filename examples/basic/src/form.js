@@ -13,15 +13,30 @@ var Form = React.createClass({
   
   render: function() {
     var errors = this.state.errors;
+
+    var errorMessage = {
+      width: 10,
+      height: 10,
+      border: '1px solid red',
+      marginTop: 10
+    }
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> Username </label> 
-        <input type="text" valueLink={this.linkState('username')} style={{ border: errors.username ? '1px solid red' : '' }} />
-        
-        <label> Password </label>
-        <input type="password" valueLink={this.linkState('password')} style={{ border: errors.password ? '1px solid red' : '' }} />
-        
-        <button type="submit">Submit</button>
+        {errors.username ?  <span style={errorMessage}>username is {errors.username} </span> : ''} 
+        <div style={{ marginBottom: 10}}>
+          <label> Username: </label> 
+          <input type="text" valueLink={this.linkState('username')} style={{ border: errors.username ? '1px solid red' : '', width: 150 }} />
+        </div>
+
+        {errors.passowrd ?  <span style={errorMessage}>password is {errors.password} </span> : ''} 
+        <div style={{ marginBottom: 10}}>
+          <label> Password: </label>
+          <input type="password" valueLink={this.linkState('password')} style={{ border: errors.password ? '1px solid red' : '', width: 150 }} />
+        </div>
+
+        <div style={{ marginBottom: 10}}>
+          <button type="submit">Submit</button>
+        </div>
       </form>
     );
   },
