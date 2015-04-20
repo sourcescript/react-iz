@@ -1,61 +1,47 @@
-var React = require('react');
+var React = require('react/addons');
+var LinkedStateMixin = React.addons.LinkedStateMixin;
 var iz = require('iz');
 var are = iz.are;
 var validators = iz.validators;
-var saveData = JSON.parse(localStorage.saveData || null) || {};
 
 var Form = React.createClass({
+  mixins: [LinkedStateMixin],
 
+  getInitialState: function() {
+    return { errors: false };
+  },
+  
   render: function() {
+    var errors = this.state.errors;
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <label> Username </label> 
-        <input type="text" ref="username" />
+        <input type="text" valueLink={this.linkState('username')} style={{ border: errors.username ? '1px solid red' : '' }} />
         
         <label> Password </label>
-        <input type="password" ref="password" />
-        <button type="button" onClick={this.handleSubmit}>Submit</button>
+        <input type="password" valueLink={this.linkState('password')} style={{ border: errors.password ? '1px solid red' : '' }} />
+        
+        <button type="submit">Submit</button>
       </form>
     );
   },
 
   handleSubmit: function(e) {
     e.preventDefault();
-
-    var data = {
-      username: this.refs.username.getDOMNode().value,
-      password: this.refs.password.getDOMNode().value
-    };
-
     
-    var usernameErrors = {
-      required: 'this bitch is required!'
-    };
-
-    var passwordErrors = {
-      required: 'this bitch is required!'
+    var data = {
+      username: this.state.username,
+      password: this.state.password
     };
 
     var rules = {
-      username: iz(data.username, usernameErrors),
-      password: iz(data.password, passwordErrors)
-    };  
+      username: iz(data.username, 'sir required').required(),
+      password: iz(data.password, 'sir required').required()
+    };
 
-    console.log(rules);
     var areRules = are(rules);
-    var success = areRules.valid();
-    success ? this.saveData(data) : console.log('throw error');
-  },
-
-  saveData: function(data) {
-    
-    saveData.data = data;
-    saveData.time = new Date().getTime();
-    localStorage.saveData = JSON.stringify(saveData);
-
-    alert("Data is stored! Congratulations!!");
+    this.setState({ errors: areRules.getInvalidFields() })
   }
-
 });
 
 React.render(
