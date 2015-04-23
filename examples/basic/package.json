@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "babelify": "~6.0.2",
+    "iz": "~0.7.1",
+    "react": "~0.13.2"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t babelify ./src/form.js -o ./bundle.js"
+    "build": "browserify --extension=.jsx -t babelify ./src/form.js -o ./bundle.js"
   },
   "author": "",
-  "license": "BSD-2-Clause",
-  "dependencies": {
-    "react": "~0.13.2",
-    "babelify": "~6.0.2",
-    "iz": "~0.7.1"
-  }
+  "license": "BSD-2-Clause"
 }
